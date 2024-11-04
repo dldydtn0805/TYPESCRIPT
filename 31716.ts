@@ -40,13 +40,11 @@ rl.on('line', (line: string) => {
     }
     const responseUp = bfs(0)
     const responseDown = bfs(1)
-    // 위로해서 루트 턴
     let loopUp = INF
     let loopDown = INF
     if (responseUp[0][0] === 0) {
         loopUp = Math.min(loopUp, responseUp[0][N-1] + 1)
     }
-    // 아래로 해서 루트 턴
     if (responseDown[1][0] === 0) {
         loopDown = Math.min(loopDown, responseDown[1][N-1] + 1)
     }
@@ -56,17 +54,11 @@ rl.on('line', (line: string) => {
         const Down = (loopDown*(K-2))+Math.min(responseUp[1][N-1], responseDown[1][N-1])+Math.min(responseDown[0][N-1],responseDown[1][N-1])
         ans = Math.min(Up, Down) + 1
     } else if (K === 2) {
-        ans = Math.min(loopUp*(K-1)+Math.min(responseUp[0][N-1], responseDown[0][N-1]),
-            loopDown*(K-1)+Math.min(responseUp[1][N-1], responseDown[1][N-1]))
-
+        ans = Math.min(loopUp*(K-1)+ Math.min(responseUp[0][N-1], responseUp[1][N-1], responseDown[0][N-1], responseDown[1][N-1]),
+            loopDown*(K-1)+ Math.min(responseUp[0][N-1], responseUp[1][N-1], responseDown[0][N-1], responseDown[1][N-1]))
     } else {
         ans = Math.min(responseUp[0][N-1], responseUp[1][N-1], responseDown[0][N-1], responseDown[1][N-1])
     }
     console.log(ans >= INF ? -1 : ans)
 });
 
-/*
-4 4
-.#..
-...#
-*/
